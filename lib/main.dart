@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             TextTheme(
               bodyLarge: TextStyle(
                 color: Colors.white,
-                fontSize: 28,
+                fontSize: 30,
               ),
               bodyMedium: TextStyle(
                 color: Colors.black,
