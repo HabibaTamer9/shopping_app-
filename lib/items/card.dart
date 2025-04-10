@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Cards extends StatelessWidget {
+class Cards extends StatefulWidget {
   const Cards({super.key,required this.image,required this.name,required this.price});
   final String image;
   final String name;
   final String price;
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  bool iconcolor =true;
+  Widget iconchange =Icon(Icons.favorite_border_outlined);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +36,8 @@ class Cards extends StatelessWidget {
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Image.network(image, fit: BoxFit.cover),
+
+        child: Image.network(widget.image, fit: BoxFit.cover),
       ),
 
       SizedBox(width: 12),
@@ -39,26 +49,35 @@ class Cards extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              name,
+              widget.name,
               style: Theme.of(context).textTheme.bodySmall,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
             SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(right: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    price,
-                    style: TextStyle(
-                      color: Colors.grey.shade600,
-                      fontSize: 20,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widget.price,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 20,
                   ),
-                  Icon(Icons.favorite_border_outlined),
-                ],
-              ),
+                ),
+                IconButton(icon:iconchange,onPressed: (){setState(() {
+                  iconcolor = !iconcolor;
+                  if(!iconcolor) {
+                    iconchange = Icon(Icons.favorite,color: Colors.teal);
+                  }else{
+                    iconchange =Icon(Icons.favorite_border_outlined);
+                  }
+                });},
+                  iconSize: 28,
+                ),
+              ],
             ),
+
           ],
         ),
       ),
@@ -66,7 +85,7 @@ class Cards extends StatelessWidget {
     ),
 
     )
-      
+
 
     );
   }
